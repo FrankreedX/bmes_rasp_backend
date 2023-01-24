@@ -9,5 +9,5 @@ raspi.init(() => {
 })
 
 module.exports = {
-    motor1Pin
+    motor1Pin: motor1Pin
 }

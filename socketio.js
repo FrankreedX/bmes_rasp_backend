@@ -1,9 +1,20 @@
 const Server = require('socket.io')
-const {motor1Pin} = require("./raspi");
+const { motor1Pin } = require("./raspi");
 
 let io
 
-function init(server){
+const raspi = require('raspi');
+const pwm = require('raspi-soft-pwm');
+
+let motor1Pin
+
+raspi.init(() => {
+    motor1Pin = new pwm.SoftPWM('GPIO22');
+    console.log("raspi initialized")
+})
+
+
+function init(server) {
     console.log("server initializing")
     io = Server(server, {
         cors: {
@@ -11,10 +22,10 @@ function init(server){
         }
     })
 
-    io.on('connection', (socket)=>{
+    io.on('connection', (socket) => {
         console.log("connection initialized by id: ", socket.id)
-        socket.on('setMotorSpeed', (newSpeed)=>{
-            // motor1Pin.write(newSpeed)
+        socket.on('setMotorSpeed', (newSpeed) => {
+            motor1Pin.write(newSpeed)
             console.log("received new speed: ", newSpeed)
             socket.emit("acknowledged", newSpeed)
         })
