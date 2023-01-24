@@ -1,0 +1,3 @@
+[submodule "bmes_rasp_frontend"]
+	path = bmes_rasp_frontend
+	url = git@github.com:FrankreedX/bmes_rasp_frontend.git

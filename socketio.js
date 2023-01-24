@@ -9,7 +9,7 @@ const pwm = require('raspi-soft-pwm');
 let motor1Pin
 
 raspi.init(() => {
-    motor1Pin = new pwm.SoftPWM('GPIO22');
+    motor1Pin = new pwm.SoftPWM('GPIO21');
     console.log("raspi initialized")
 })
 
