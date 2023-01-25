@@ -7,6 +7,7 @@ class Valve{
 
         raspi.init(()=>{
             this.pin = new gpio.DigitalOutput(pin);
+            console.log("Valve initialized")
         })
     }
 
