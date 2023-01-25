@@ -1,17 +1,11 @@
 const Server = require('socket.io')
 
 let io
+const {Motor} = require("./motorWrapper");
+const {Valve} = require("./valveWrapper");
 
-const raspi = require('raspi');
-const pwm = require('raspi-soft-pwm');
-
-let motor1Pin
-
-raspi.init(() => {
-    motor1Pin = new pwm.SoftPWM('GPIO21');
-    console.log("raspi initialized")
-})
-
+let motor = new Motor('GPIO21')
+let valve = new Valve('GPIO16')
 
 function init(server) {
     console.log("server initializing")
@@ -24,11 +18,20 @@ function init(server) {
     io.on('connection', (socket) => {
         console.log("connection initialized by id: ", socket.id)
         socket.on('setMotorSpeed', (newSpeed) => {
-            motor1Pin.write(newSpeed)
+            motor.Speed = newSpeed
             console.log("received new speed: ", newSpeed)
             socket.emit("acknowledged", newSpeed)
         })
-
+        socket.on('openValve', () => {
+            valve.open()
+            console.log("opened valve")
+            socket.emit("acknowledged", "valve opening")
+        })
+        socket.on('closeValve', () => {
+            valve.close()
+            console.log("closed valve")
+            socket.emit("acknowledged", "valve closing")
+        })
     })
 }
 
