@@ -1,5 +1,4 @@
 const Server = require('socket.io')
-const { motor1Pin } = require("./raspi");
 
 let io
 
