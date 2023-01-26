@@ -13,7 +13,7 @@ const {init} = require("../socketio");
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4113');
+var port = normalizePort(process.env.PORT || Math.floor(Math.random() * (10000 - 999) + 999));
 app.set('port', port);
 
 /**
@@ -29,6 +29,7 @@ init(server) //bind server to socketio
  */
 
 server.listen(port);
+console.log("Listening on port ", port)
 server.on('error', onError);
 server.on('listening', onListening);
 
