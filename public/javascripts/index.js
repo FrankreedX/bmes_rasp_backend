@@ -22,3 +22,13 @@ function changeValve(){
     console.log("sending server ", valveToggle ? 'openValve' : 'closeValve')
     valveToggleBtn.textContent = valveToggle ? 'Close Valve' : 'Open Valve'
 }
+
+function fetchAllChanges(){
+    socket.emit('getAllStatus', (allStatuses)=>{
+        console.log(allStatuses)
+    })
+}
+
+var intervalId = setInterval(function() {
+    alert("Interval reached every 5s")
+}, 5000);
